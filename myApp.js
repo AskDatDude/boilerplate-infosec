@@ -2,18 +2,18 @@ const express = require('express');
 const app = express();
 const helmet = require("helmet");
 
-app.use(helmet.hidePoweredBy());
-app.use(helmet.frameguard({action: 'deny'}));
-app.use(helmet.xssFilter());
-app.use(helmet.noSniff());
-app.use(helmet.ieNoOpen());
-
-
-
-
-
-
-
+app.use(helmet({
+  frameguard: {         // configure
+    action: 'deny'
+  },
+  contentSecurityPolicy: {    // enable and configure
+    directives: {
+      defaultSrc: ["'self'"],
+      styleSrc: ['style.com'],
+    }
+  },
+  dnsPrefetchControl: false     // disable
+}));
 
 
 
